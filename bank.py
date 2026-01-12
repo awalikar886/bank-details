@@ -1,4 +1,4 @@
- import sys
+import sys
 
 def bank_details(argv=None):
     if argv is None:
