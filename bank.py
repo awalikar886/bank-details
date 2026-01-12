@@ -1,34 +1,54 @@
-import sys
+ import sys
 
-if len(sys.argv) == 6:
-    script_name = sys.argv[0]
-    acc_holder = sys.argv[1]
-    acc_number = sys.argv[2]
-    acc_type = sys.argv[3]
-    balance = float(sys.argv[4])
-    transaction = float(sys.argv[5])
-else:
-    script_name = sys.argv[0]
-    acc_holder = "Nilesh Pawar"
-    acc_number = "35155838037"
-    acc_type = "Savings"
-    balance = 15000
-    transaction = -3000
+def bank_details(argv=None):
+    if argv is None:
+        argv = sys.argv
 
-print("Script Name:", script_name)
-print("Account Holder Name:", acc_holder)
-print("Account Number:", acc_number)
-print("Account Type:", acc_type)
-print("Initial Balance:", balance)
-print("Transaction Amount:", transaction)
+    if len(argv) == 6:
+        script_name = argv[0]
+        acc_holder = argv[1]
+        acc_number = argv[2]
+        acc_type = argv[3]
+        balance = float(argv[4])
+        transaction = float(argv[5])
+    else:
+        script_name = argv[0]
+        acc_holder = "Akash"
+        acc_number = "SB102345"
+        acc_type = "Savings"
+        balance = 15000
+        transaction = -3000
 
-if transaction > 0:
-    balance = balance + transaction
-    status = "Deposit Successful"
-elif transaction <= balance:
-    balance = balance + transaction
-    status = "Withdrawal Successful"
-else:
-    status = "Transaction Failed - Insufficient Balance"
-print("Transaction Status:", status)
-print("Updated Balance:", balance)
+    initial_balance = balance
+
+    if transaction > 0:
+        balance += transaction
+        status = "Deposit Successful"
+    elif transaction <= balance:
+        balance += transaction
+        status = "Withdrawal Successful"
+    else:
+        status = "Transaction Failed - Insufficient Balance"
+
+    return {
+        "script_name": script_name,
+        "account_holder": acc_holder,
+        "account_number": acc_number,
+        "account_type": acc_type,
+        "initial_balance": initial_balance,
+        "transaction": transaction,
+        "updated_balance": balance,
+        "status": status
+    }
+
+if __name__ == "__main__":
+    result = bank_details()
+
+    print("Script Name:", result["script_name"])
+    print("Account Holder:", result["account_holder"])
+    print("Account Number:", result["account_number"])
+    print("Account Type:", result["account_type"])
+    print("Initial Balance:", result["initial_balance"])
+    print("Transaction Amount:", result["transaction"])
+    print("Transaction Status:", result["status"])
+    print("Updated Balance:", result["updated_balance"])
